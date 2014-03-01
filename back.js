@@ -8,6 +8,7 @@ app.use(logfmt.requestLogger());
 app.get('/', function(req, res) {
 	var stream = fs.createReadStream("../EZApp/CSV/wildlife.csv");
 
+	 res.send("Hi this works1");
 	csv(stream, {
 				headers : ["Common name", "Scientific name", "Population","Taxon","Range", "COSEWIC status", "Schedule", "SARA status"], 
 							ignoreEmpty: true})
@@ -18,6 +19,7 @@ app.get('/', function(req, res) {
 				     console.log("done");
 				 })
 	 			.parse();
+	 res.send("Hi this works2");
 	 res.send(stream);
 });
 
