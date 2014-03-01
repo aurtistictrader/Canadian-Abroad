@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 				     console.log("done");
 				 })
 	 			.parse();
-	 
+	 res.send(stream);
 });
 
 var port = Number(process.env.PORT || 5000);
