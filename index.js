@@ -6,12 +6,12 @@ AmCharts.ready(function() {
     //map.panEventsEnabled = true; // this line enables pinch-zooming and dragging on touch devices
     map.balloon.color = "#000000";
     map.panEventsEnabled = true;
-    var canadaDataProvider = {
-        mapVar: AmCharts.maps.canadaLow,
+    var worldDataProvider = {
+        mapVar: AmCharts.maps.worldLow,
         getAreasFromMap: true
     };
 
-    map.dataProvider = canadaDataProvider;
+    map.dataProvider = worldDataProvider;
 
     map.areasSettings = {
         autoZoom: true,
