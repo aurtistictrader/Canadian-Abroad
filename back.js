@@ -1,6 +1,6 @@
 var express = require("express");
 var logfmt = require("logfmt");
-	var request = require("request");
+var request = require("request");
 //var csv = require("fast-csv");
 var app = express();
 
@@ -16,7 +16,9 @@ app.get('/', function(req, res) {
 	}, function (error, response, body) {
 
 	    if (!error && response.statusCode === 200) {
-	        console.log(body) // Print the json response
+	        //console.log(body) // Print the json response
+	    	res.send(body);
+	    	res.send("wokrs?");
 	    }
 	})
 });
