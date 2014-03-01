@@ -21,17 +21,17 @@ AmCharts.ready(function() {
     map.smallMap = new AmCharts.SmallMap();
     
     map.addListener("clickMapObject", function (event) {
-        if (event.mapObject.id == "CA-ON") {
-           
-        } else if (event.mapObject.id == "CA-QC") {
-            
-        }
-        
+        search(event.MapObject.id);
     });
 
     map.write("mapdiv");
 
 });
+
+// search the name and the data
+function searchData(nameOfCountry, arrayOfCountry) {
+
+}
 
 function loadNewMap (url, mapName) {
     if (AmCharts.maps[mapName] != undefined) {

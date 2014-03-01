@@ -1,32 +1,30 @@
 var express = require("express");
 var logfmt = require("logfmt");
-var csv = require("fast-csv");
+	var request = require("request");
+//var csv = require("fast-csv");
 var app = express();
 
 app.use(logfmt.requestLogger());
 
 app.get('/', function(req, res) {
-	var stream = fs.createReadStream("../EZApp/CSV/wildlife.csv");
 
-	 res.send("Hi this works1");
-	csv(stream, {
-				headers : ["Common name", "Scientific name", "Population","Taxon","Range", "COSEWIC status", "Schedule", "SARA status"], 
-							ignoreEmpty: true})
-				 .on("data", function(data){
-				     console.log(data):
-				 })
-				 .on("end", function(){
-				     console.log("done");
-				 })
-	 			.parse();
-	 res.send("Hi this works2");
-	 res.send(stream);
+	var url = "http://data.international.gc.ca/travel-voyage/embassies-consulates-list.json";
+
+	request({
+	    url: url,
+	    json: true
+	}, function (error, response, body) {
+
+	    if (!error && response.statusCode === 200) {
+	        console.log(body) // Print the json response
+	    }
+	})
 });
 
-var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
+	var port = Number(process.env.PORT || 5000);
+	app.listen(port, function() {
+	  console.log("Listening on " + port);
+	});
 
 //go to PaaS -> Heroku -> Applications
 
