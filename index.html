@@ -18,19 +18,22 @@
 		<script src="../EZApp/index.js" type="text/javascript"></script>
 
 		<script>
-        $(document).ready(function() { $("#e1").select2({
-        	placeholder: "Search",
-        	minimumInputLength: 2,
-        	query: function (query) {
-	        var data = {results: []}, i, j, s;
-	        for (i = 1; i < 5; i++) {
-	            s = "";
-	            for (j = 0; j < i; j++) {s = s + query.term;}
-	            data.results.push({id: query.term + i, text: s});
-	        }
-	        query.callback(data);
-    }
-        }); });
+			dummy = ['Acadian Flycatcher', 'Acadian Redfish', 'Alkaline Wing-nerved Moss'];
+
+        $(document).ready(function() { 
+        	$("#e1").select2({
+	        	placeholder: "Search",
+	        	minimumInputLength: 2,
+	        	query: function (query) {
+			        var data = {results: []};
+			        for (i = 0; i < 3; i++) {
+			            s = dummy[i];
+			            data.results.push({id: query.term + i, text: s});
+			        }
+			        query.callback(data);
+	    		}
+        	}); 
+        });
     	</script>
 
 	</head>
