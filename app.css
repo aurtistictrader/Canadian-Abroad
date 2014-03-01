@@ -1,0 +1,27 @@
+html, body {
+    padding:0px;
+    margin:0px;
+    color:white;
+    font-family:arial;
+    font-size:10px;
+}
+.container {
+    width:100%;
+    height: 1000px;
+    margin:0 auto;
+}
+
+#mapdiv {
+    width: 80%; 
+    background-color:#EEEEEE; 
+    height: 100%;
+    position: fixed;
+}
+.panel {
+    top: 0px;
+    background:#45a1d5;
+    width:20%;
+    height:100%;
+    left: 80%;
+    position: relative;
+}
