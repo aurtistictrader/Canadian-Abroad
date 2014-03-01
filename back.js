@@ -4,8 +4,13 @@ var request = require("request");
 //var csv = require("fast-csv");
 var app = express();
 
-//app.use(logfmt.requestLogger());
-app.use(function (req, res, next) {
+app.use(logfmt.requestLogger());
+app.options('/posts', function(req, res){
+  //console.log("writing headers only");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.end('');
+});
+/*app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,7 +27,7 @@ app.use(function (req, res, next) {
 
     // Pass to next layer of middleware
     next();
-});
+});*/
 app.get('/', function(req, res) {
 
 	var url = "http://data.international.gc.ca/travel-voyage/embassies-consulates-list.json";
@@ -34,6 +39,7 @@ app.get('/', function(req, res) {
 
 	    if (!error && response.statusCode === 200) {
 	        //console.log(body) // Print the json response
+  			res.header("Access-Control-Allow-Origin", "*");
 	    	res.send(body);
 	    }
 	})
