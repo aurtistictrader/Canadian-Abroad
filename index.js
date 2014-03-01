@@ -21,12 +21,47 @@ AmCharts.ready(function() {
     map.smallMap = new AmCharts.SmallMap();
     
     map.addListener("clickMapObject", function (event) {
-        if (event.mapObject.id == "CA-ON") {
-           
-        } else if (event.mapObject.id == "CA-QC") {
-            
+        switch (event.mapObject.id) {
+            case "CA-AB":
+                
+                break;
+            case "CA-BC":
+    
+                break;
+            case "CA-MB":
+                
+                break;
+            case "CA-NB":
+                
+                break;
+            case "CA-NL":
+                
+                break;
+            case "CA-NS":
+                
+                break;
+            case "CA-NT":
+                
+                break;
+            case "CA-NU":
+                
+                break;
+            case "CA-ON":
+                
+                break;
+            case "CA-PE":
+                
+                break;
+            case "CA-QC":
+                
+                break;
+            case "CA-SK":
+                
+                break;
+            case "CA-YT":
+                
+                break;
         }
-        
     });
 
     map.write("mapdiv");
