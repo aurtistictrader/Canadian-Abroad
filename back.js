@@ -4,8 +4,25 @@ var request = require("request");
 //var csv = require("fast-csv");
 var app = express();
 
-app.use(logfmt.requestLogger());
+//app.use(logfmt.requestLogger());
+app.use(function (req, res, next) {
 
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', '*');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', false);
+
+    // Pass to next layer of middleware
+    next();
+});
 app.get('/', function(req, res) {
 
 	var url = "http://data.international.gc.ca/travel-voyage/embassies-consulates-list.json";
@@ -18,7 +35,6 @@ app.get('/', function(req, res) {
 	    if (!error && response.statusCode === 200) {
 	        //console.log(body) // Print the json response
 	    	res.send(body);
-	    	res.send("wokrs?");
 	    }
 	})
 });
