@@ -251,7 +251,11 @@
 
                     if (arrAlertISO[i].substring(1,3) == inputCode) {
                       //alert(JSON.stringify(arrAlertEng[i]["advisory-text"]));
-                      $('#actualLine').html(arrAlertEng[i]["advisory-text"]);
+                      if (arrAlertEng[i]["advisory-text"].indexOf["see also regional advisories."] != -1) {
+                        $('#actualLine').html(arrAlertEng[i]["advisory-text"].replace("; see also regional advisories.", ""));
+                      } else {
+                         $('#actualLine').html(arrAlertEng[i]["advisory-text"]);
+                      }
 
                     } 
                   }
