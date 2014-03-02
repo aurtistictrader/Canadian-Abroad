@@ -184,9 +184,9 @@
                           });
                         query.callback(data);
                     } 
-                    
+
                }); 
-              $("#searchlocation").select2('data', preload_data );
+              $("#searchlocation").select2( preload_data );
               $("#searchlocation").click(function() {
 
                    search($(this).select2("data")["text"].substring(1,3));
