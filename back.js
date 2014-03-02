@@ -26,8 +26,20 @@ app.configure(function() {
     app.use("/EZApp/select2-3.4.5", express.static(temp+"/select2-3.4.5/select2.css"));
     app.use("/EZApp/select2-3.4.5", express.static(temp+"/select2-3.4.5/select2.js"));
     app.use(express.static(temp+"/index.js"));
+    app.use(express.static(temp+"/embassies-consulates-list.json"));
     app.use("/EZApp/ammap/maps/js", express.static(temp+"/ammap/maps/js/worldLow.js"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/plus.gif"));
+
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/minus.gif"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panLeft.gif"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panRight.gif"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panUp.gif"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panDown.gif"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/homeIcon.gif"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/arrowDown.gif"));
+    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/arrowUp.gif"));
 });
+
 /*
     var temp = "/Users/chengpeng123/Documents/EZApp";
     app.use(express.static(temp+"/ammap/ammap.css"));

@@ -9,40 +9,102 @@
         <script> jQuery.noConflict(); </script>
         
           <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-        <link rel="stylesheet" href="../EZApp/ammap/ammap.css" type="text/css">
-        <link rel="stylesheet" href="../EZApp/app.css" type="text/css">
-        <link rel="stylesheet" href="../EZApp/select2-3.4.5/select2.css" type="text/css">
 
         <script src="../EZApp/select2-3.4.5/select2.js"></script>
         <script src="../EZApp/ammap/ammap.js" type="text/javascript"></script>
         <!-- check ammap/maps/js/ folder to see all available countries -->
-        
         <script src="../EZApp/ammap/maps/js/worldLow.js" type="text/javascript"></script>
         <script src="../EZApp/index.js" type="text/javascript"></script>
 
-        <script>
-            dummy = ['Acadian Flycatcher', 'Acadian Redfish', 'Alkaline Wing-nerved Moss'];
+        <link rel="stylesheet" href="../EZApp/ammap/ammap.css" type="text/css">
+        <link rel="stylesheet" href="../EZApp/app.css" type="text/css">
+        <link rel="stylesheet" href="../EZApp/select2-3.4.5/select2.css" type="text/css">
 
+        <script>
+            
         (function( $) {
+          var arrEngData = new Array();
+          var arrOfficeData = new Array();
             $(document).ready(function() {
+              $.ajax({
+                url: "/EZApp/embassies-consulates-list.json",
+                dataType: 'json',
+                type: 'GET',
+                async: false,
+                success: function (data)  {
+                  var strData = JSON.stringify(data);
+                  //alert(JSON.stringify(data));
+                    $.each($.parseJSON(strData), function (item, value) {
+                      if (item == "data") {
+                          $.each(value, function (i, object) {
+                              $.each(object, function (subI, subObject) {
+                                  if (subI == "country") {
+                                    //alert(JSON.stringify(subObject));
+                                    //var str = JSON.stringify(subObject);
+
+                                      /*$.each(subObject, function(strCountry, countryIso)) {
+                                         if (strCountry == "country-iso") {
+                                            arrCountry.push(JSON.stringify(countryIso));
+                                         }
+                                      }*/
+                                  } else if (subI == "offices") {
+                                    //alert(JSON.stringify(subObject));
+                                    //var str = JSON.stringify(subObject);
+                                    //arrOfficeData.push(str);
+                                    //alert(arrOfficeData[arrOfficeData.length-1]);
+                                    //alert(arrOfficeData[arrOfficeData.length-1]);
+                                    //alert(JSON.stringify(subObject));
+                                      //arrOfficeData.push(JSON.stringify(subObject));
+                                    $.each(subObject, function(strLang, officeData) {
+                                         if (strLang == "fra") {
+                                            //var str2 = JSON.stringify(officeData);
+                                            //arrEngData.push(str2);
+                                            //alert(str2);
+                                         }
+                                    });
+                                  }
+                              });
+                          });
+
+                      }
+                    });
+                }
+              });/*
+              $.getJSON("/EZApp/embassies-consulates-list.json", function(data){
+                $.each(data, function (index, value) {
+                    console.log(value);
+                    alert(value);
+                });
+              });*/
+              onPageLoad();
                $("#searchlocation").select2({
                     placeholder: "Search",
                     minimumInputLength: 2,
                     query: function (query) {
                         var data = {results: []};
-                        for (i = 0; i < dummy.length; i++) {
-                            s = dummy[i];
-                            data.results.push({id: query.term + i, text: s});
+                        for (i = 0; i < arrOfficeData.length; i++) {
+                            var s = arrOfficeData[i];
+                            var eng = arrEngData[i];
+                            var finalText = s["country-iso"] + " (" + eng["country"] + ")";
+
+                            data.results.push({id: query.term + i, text: finalText });
                         }
                         query.callback(data);
                     }
                }); 
-            });
-        }) (jQuery);
-        </script>
-        <script>
-              $(onPageLoad);
+/*
+              alert(arrOfficeData.length);
+              for (var i = 0; i < 3; i++) {
+                alert(arrOfficeData[i]);
+              }*/
 
+
+
+
+
+
+
+            });
               function onPageLoad()
               {
                 $( ".column" ).sortable({
@@ -69,7 +131,8 @@
                   icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
                 });
               }
-  </script>
+        }) (jQuery);
+        </script>
     </head>
 
 

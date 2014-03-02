@@ -2,7 +2,7 @@ var map;
 
 AmCharts.ready(function() {
     map = new AmCharts.AmMap();
-    map.pathToImages = "ammap/images/";
+    map.pathToImages = "/EZApp/ammap/images/";
     //map.panEventsEnabled = true; // this line enables pinch-zooming and dragging on touch devices
     map.balloon.color = "#000000";
     map.panEventsEnabled = true;
@@ -21,7 +21,7 @@ AmCharts.ready(function() {
     map.smallMap = new AmCharts.SmallMap();
     
     map.addListener("clickMapObject", function (event) {
-        search(event.MapObject.id);
+        //search(event.mapObject.id, );
     });
 
     map.write("mapdiv");
@@ -30,7 +30,8 @@ AmCharts.ready(function() {
 
 // search the name and the data
 function searchData(nameOfCountry, arrayOfCountry) {
-
+    // Use for loop to go through arrayOfCountry
+    // Match country-sio and nameOfCountry
 }
 
 function loadNewMap (url, mapName) {
