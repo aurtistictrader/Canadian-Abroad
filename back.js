@@ -1,15 +1,26 @@
-var express = require("express");
+var express = require("express"), http = require('http');
 var logfmt = require("logfmt");
 var request = require("request");
-
+//var index = require("./index.html");
 //var csv = require("fast-csv");
 var app = express();
 
+var server = http.createServer(app);
+
 app.use(logfmt.requestLogger());
-app.use("/", express.static(__dirname + "/web"));
+app.set('views', __dirname + '/views');
+app.engine('html', require('ejs').renderFile);
+
+app.use( express.static(__dirname + "/web"));
+app.get('/', function (req, res)
+{
+    res.render('index.html');
+});
+app.listen(process.env.PORT || 3000);
+/*
 app.listen(8080, function() { 
     console.log('listening')
-});
+});*/
 /*
 app.get('/datat', function(req, res) {
 	var url = "http://data.international.gc.ca/travel-voyage/embassies-consulates-list.json";
