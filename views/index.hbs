@@ -41,7 +41,8 @@
                   map.dragMap = true;
                   map.centerMap = true;
                   map.mouseWheelZoomEnabled = true;
-                  map.zoomDuration = 0.4;
+
+                  map.zoomDuration = 0.5;
                   map.fitMapToContainer = true;
                   map.backgroundZoomsToTop = true;
                   //map.panEventsEnabled = true; // this line enables pinch-zooming and dragging on touch devices
@@ -166,21 +167,26 @@
                     }, "jsonp");
 
               });
-
+              var preload_data = [];
+              for (i = 0; i < arrCountries.length; i++) {
+                preload_data.push({id: i, text: arrCountries[i] });
+               }
               $("#searchlocation").select2({
                     placeholder: "Search",
-                    allowClear: true,
                     minimumInputLength: 2,
                     query: function (query) {
                         var data = {results: []};
 
-                        for (i = 0; i < arrCountries.length; i++) {
-
-                            data.results.push({id: query.term + i, text: arrCountries[i] });
-                        }
+                         $.each(preload_data, function(){
+                            if(query.term.length == 0 || this.text.toUpperCase().indexOf(query.term.toUpperCase()) >= 0 ){
+                                data.results.push({id: this.id, text: this.text });
+                            }
+                          });
                         query.callback(data);
                     } 
+                    
                }); 
+              $("#searchlocation").select2('data', preload_data );
               $("#searchlocation").click(function() {
 
                    search($(this).select2("data")["text"].substring(1,3));
