@@ -19,27 +19,11 @@
 		<script src="../EZApp/ammap/maps/js/worldLow.js" type="text/javascript"></script>
 		<script src="../EZApp/index.js" type="text/javascript"></script>
 		<script>
-
-		(function( $ ) {
-				$(document).ready(function() {
-					$.ajax({
-					    type: 'GET',
-					    dataType: "json",
-					    crossDomain: true,
-					    contentType: "application/json; charset=utf-8",
-					    url: "http://www.ez-app.herokuapp.com/",
-					    success: function (responseData, textStatus, jqXHR) {
-					        //console.log("in");
-					        var data = JSON.parse(responseData);
-					        alert(data);
-					        //console.log(data);
-					    },
-					    error: function (responseData, textStatus, errorThrown) {
-					        alert('POST failed.');
-					    }
-					});
-	        });
-		})( jQuery );
+			$(document).ready(function() {
+				$.getJSON("../EZApp/embassies-consulates-list.json", function(data) {
+					alert(data);
+				});
+			});
 		</script>
 
 	</head>
