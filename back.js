@@ -8,7 +8,7 @@ var app = express();
 var server = http.createServer(app);
 
 app.use(logfmt.requestLogger());
-app.set('views', __dirname + '/views');
+app.set('web', __dirname + '/web');
 app.engine('html', require('ejs').renderFile);
 
 app.use( express.static(__dirname + "/web"));
