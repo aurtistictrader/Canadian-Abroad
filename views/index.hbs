@@ -167,7 +167,15 @@
                     }, "jsonp");
 
               });
-              var preload_data = [];
+             
+              $("#searchlocation").click(function() {
+                   search($(this).select2("data")["text"].substring(1,3));
+                   outputHeadline($(this).select2("data")["text"].substring(1,3));
+                   //showHeadline();
+                   map.clickMapObject(map.getObjectById($(this).select2("data")["text"].substring(1,3)));
+
+              });
+               var preload_data = [];
               for (i = 0; i < arrCountries.length; i++) {
                 preload_data.push({id: i, text: arrCountries[i] });
                }
@@ -187,15 +195,7 @@
 
                }); 
               $("#searchlocation").select2( preload_data );
-              $("#searchlocation").click(function() {
-
-                   search($(this).select2("data")["text"].substring(1,3));
-                   outputHeadline($(this).select2("data")["text"].substring(1,3));
-                   //showHeadline();
-                   map.clickMapObject(map.getObjectById($(this).select2("data")["text"].substring(1,3)));
-
-              });
-/*
+/*    
                 $(".pane .delete").click(function(){
                   $(this).parents(".pane").animate({ opacity: 'hide' }, "slow");
                 });*/
