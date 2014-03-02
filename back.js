@@ -5,10 +5,17 @@ var request = require("request");
 var app = express();
 
 app.use(logfmt.requestLogger());
-app.options('/posts', function(req, res){
-  //console.log("writing headers only");
-  res.header("Access-Control-Allow-Origin", "*");
-  res.end('');
+
+app.use(express.compress());
+
+app.use(express.static('..EZApp/web'));
+
+app.use(express.bodyParser());
+
+
+app.post('/', function(req, res){
+  var result = req.rawBody;
+  res.send("hello there world data is " + result);
 });
 /*app.use(function (req, res, next) {
 
@@ -39,7 +46,6 @@ app.get('/', function(req, res) {
 
 	    if (!error && response.statusCode === 200) {
 	        //console.log(body) // Print the json response
-  			res.header("Access-Control-Allow-Origin", "*");
 	    	res.send(body);
 	    }
 	})
