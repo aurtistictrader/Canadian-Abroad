@@ -14,6 +14,7 @@
         <script src="../EZApp/ammap/ammap.js" type="text/javascript"></script>
         <!-- check ammap/maps/js/ folder to see all available countries -->
         <script src="../EZApp/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
 
         <link rel="stylesheet" href="../EZApp/ammap/ammap.css" type="text/css">
         <link rel="stylesheet" href="../EZApp/app.css" type="text/css">
@@ -25,11 +26,14 @@
           var arrCountries = new Array()
           var arrEngData = new Array();
           var arrOfficeData = new Array();
-            $(document).ready(function() {
-              var map;
 
+            $(document).ready(function() {
+             
+              var map;
+              AmCharts.theme = AmCharts.themes.light;
               AmCharts.ready(function() {
                   map = new AmCharts.AmMap();
+
                   map.pathToImages = "/EZApp/ammap/images/";
                   //map.panEventsEnabled = true; // this line enables pinch-zooming and dragging on touch devices
                   map.balloon.color = "#000000";
@@ -37,6 +41,7 @@
                   var worldDataProvider = {
                       mapVar: AmCharts.maps.worldLow,
                       getAreasFromMap: true
+
                   };
 
                   map.dataProvider = worldDataProvider;
@@ -104,7 +109,7 @@
                           var id = object["id"];
                           var title = object["title"];
 
-                          arrCountries.push(JSON.stringify(id) + " (" + JSON.stringify(title) + ")");
+                          arrCountries.push(JSON.stringify(id).substring(1,JSON.stringify(id).length-1) + " " + JSON.stringify(title).substring(1, JSON.stringify(title).length-1));
                         });
                     }
                   });
@@ -112,25 +117,22 @@
               });
               
               onPageLoad();
+
               $('#getLocation').click(function() {
-                getLocation();
-                function getLocation()
-                  {
-                    var countryCode;
                     $.get("http://ipinfo.io", function (response) {
-                      countryCode = response.country;
+                      map.clickMapObject(map.getObjectById(response.country));
                     }, "jsonp");
-                    alert(countryCode);
-                    map.clickMapObject(map.getObjectById(countryCode));
-                  }
               });
+
               $("#searchlocation").select2({
                     placeholder: "Search",
+                    allowClear: true,
                     minimumInputLength: 2,
                     query: function (query) {
                         var data = {results: []};
 
                         for (i = 0; i < arrCountries.length; i++) {
+
                             data.results.push({id: query.term + i, text: arrCountries[i] });
                         }
                         query.callback(data);
@@ -212,8 +214,10 @@
 
 <body>
     <div class=container>
-        <div  id="mapdiv"></div>
+            <div id="mapdiv">
+            </div>
         <div class="panel">
+          
         <input type='hidden' id="searchlocation">
 
     <div class="column">
@@ -242,6 +246,8 @@
         <div id="5" class="portlet-content"></div>
       </div>
     </div>
+
+         <img id="getLocation" src="../EZApp/icon_current_location.png"> </img>
 
     </div>
     </div>

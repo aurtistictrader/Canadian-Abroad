@@ -28,6 +28,7 @@ app.configure(function() {
     app.use(express.static(temp+"/index.js"));
     app.use(express.static(temp+"/embassies-consulates-list.json"));
     app.use("/EZApp/ammap/maps/js", express.static(temp+"/ammap/maps/js/worldLow.js"));
+    
 });
 
 //app.use( express.static(__dirname + "/"));
