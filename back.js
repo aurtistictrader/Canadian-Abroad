@@ -28,29 +28,7 @@ app.configure(function() {
     app.use(express.static(temp+"/index.js"));
     app.use(express.static(temp+"/embassies-consulates-list.json"));
     app.use("/EZApp/ammap/maps/js", express.static(temp+"/ammap/maps/js/worldLow.js"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/plus.gif"));
-
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/minus.gif"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panLeft.gif"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panRight.gif"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panUp.gif"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/panDown.gif"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/homeIcon.gif"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/arrowDown.gif"));
-    app.use("/EZApp/ammap/images", express.static(temp+"/EZApp/ammap/images/arrowUp.gif"));
 });
-
-/*
-    var temp = "/Users/chengpeng123/Documents/EZApp";
-    app.use(express.static(temp+"/ammap/ammap.css"));
-    app.use(express.static(temp+"/ammap/ammap.js"));
-    app.use(express.static(temp+"/app.css"));
-    app.use(express.static(temp+"/select2-3.4.5/select2.css"));
-    app.use(express.static(temp+"/select2-3.4.5/select2.js"));
-    app.use(express.static(temp+"/index.js"));
-    app.use(express.static(temp+"/ammap/maps/js/worldLow.js"));*/
-//app.set('', __dirname + '/');
-//app.engine('html', require('ejs').renderFile);
 
 //app.use( express.static(__dirname + "/"));
 app.get('/', function (req, res)
@@ -58,40 +36,3 @@ app.get('/', function (req, res)
     res.render("index");
 });
 app.listen(process.env.PORT || 3000);
-/*
-app.listen(8080, function() { 
-    console.log('listening')
-});*/
-/*
-app.get('/datat', function(req, res) {
-	var url = "http://data.international.gc.ca/travel-voyage/embassies-consulates-list.json";
-
-	request({
-	    url: url,
-	    json: true
-	}, function (error, response, body) {
-
-	    if (!error && response.statusCode === 200) {
-	        //console.log(body) // Print the json response
-	    	res.send(body);
-	    }
-	})
-});*/
-/*
-	var port = Number(process.env.PORT || 5000);
-	app.listen(port, function() {
-	  console.log("Listening on " + port);
-	});*/
-
-//go to PaaS -> Heroku -> Applications
-
-//Try this (Later):
-// Git -> remote -> fetch (if you need to get prev)
-  //This leads to Git -> Merge 
-    // Git -> remote -> Commit
-      // Git -> remote -> push
-
-//Try Now:
-// Git -> Commit
-  // Git -> remote -> push
-

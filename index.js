@@ -21,13 +21,19 @@ AmCharts.ready(function() {
     map.smallMap = new AmCharts.SmallMap();
     
     map.addListener("clickMapObject", function (event) {
-
-        search( );
+        
+        //search(event.mapObject.id, );
     });
 
     map.write("mapdiv");
 
 });
+
+// search the name and the data
+function searchData(nameOfCountry, arrayOfCountry) {
+    // Use for loop to go through arrayOfCountry
+    // Match country-sio and nameOfCountry
+}
 
 function loadNewMap (url, mapName) {
     if (AmCharts.maps[mapName] != undefined) {
