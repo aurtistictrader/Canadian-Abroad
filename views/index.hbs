@@ -23,6 +23,7 @@
         <script>
             
         (function( $) {
+          var arrCountries = new Array()
           var arrEngData = new Array();
           var arrOfficeData = new Array();
             $(document).ready(function() {
@@ -50,17 +51,15 @@
                                   } else if (subI == "offices") {
                                     //alert(JSON.stringify(subObject));
                                     //var str = JSON.stringify(subObject);
-                                    //arrOfficeData.push(str);
                                     //alert(arrOfficeData[arrOfficeData.length-1]);
                                     //alert(arrOfficeData[arrOfficeData.length-1]);
                                     //alert(JSON.stringify(subObject));
                                       //arrOfficeData.push(JSON.stringify(subObject));
-                                    $.each(subObject, function(strLang, officeData) {
-                                         if (strLang == "fra") {
-                                            //var str2 = JSON.stringify(officeData);
-                                            //arrEngData.push(str2);
-                                            //alert(str2);
-                                         }
+                                    $.each($.parseJSON(JSON.stringify(subObject)), function(engData, officeData) {
+                                     
+                                        arrEngData.push(officeData["eng"]);
+                                        arrOfficeData.push(officeData["country-iso"]);
+                                         
                                     });
                                   }
                               });
@@ -69,40 +68,73 @@
                       }
                     });
                 }
-              });/*
-              $.getJSON("/EZApp/embassies-consulates-list.json", function(data){
-                $.each(data, function (index, value) {
-                    console.log(value);
-                    alert(value);
-                });
-              });*/
+              });
+              $.ajax({
+                url: "/EZApp/countries.json",
+                dataType: 'json',
+                type: 'GET',
+                async: false,
+                success: function (data)  {
+                  var strData = JSON.stringify(data);
+                  $.each($.parseJSON(strData), function (item, value) {
+                    if (item == "path") {
+                        $.each(value, function (id, object) {
+                          var id = object["id"];
+                          var title = object["title"];
+
+                          arrCountries.push(JSON.stringify(id) + " (" + JSON.stringify(title) + ")");
+                        });
+                    }
+                  });
+                }
+              });
+              
               onPageLoad();
-               $("#searchlocation").select2({
+              
+              $("#searchlocation").select2({
                     placeholder: "Search",
                     minimumInputLength: 2,
                     query: function (query) {
                         var data = {results: []};
-                        for (i = 0; i < arrOfficeData.length; i++) {
-                            var s = arrOfficeData[i];
-                            var eng = arrEngData[i];
-                            var finalText = s["country-iso"] + " (" + eng["country"] + ")";
 
-                            data.results.push({id: query.term + i, text: finalText });
+                        for (i = 0; i < arrCountries.length; i++) {
+                            data.results.push({id: query.term + i, text: arrCountries[i] });
                         }
                         query.callback(data);
-                    }
+                    } 
                }); 
-/*
-              alert(arrOfficeData.length);
-              for (var i = 0; i < 3; i++) {
-                alert(arrOfficeData[i]);
-              }*/
+              $("#searchlocation").click(function() {
+                    // look through arrOfficeData and arrEngData, populate cards;
+                    var update = false;
+                      var inputCode = $(this).select2("data")["text"].substring(1,3);
+                      for (i = 0; i < arrOfficeData.length; i++) {
+                          var s = arrOfficeData[i];
+                          var eng = arrEngData[i];
+                          
+                          if (inputCode.substring(0,2) == (s.substring(0,2))) {
+                            //CHANGE CARD DATA
+                            update = true;
+                            $("#1").html("<br><div>" + JSON.stringify(eng["address"]) + "</div>");
+                            $("#2").html("<br><div>" + JSON.stringify(eng["email-1"]) + "</div>");
 
+                            $("#3").html("<br><a href='http://www.maps.google.com/?q="+ JSON.stringify(eng["address"])+ "'>TO: " + JSON.stringify(eng["address"]) + "</a>");
 
+                            $("#4").html( "<br><div>" + JSON.stringify(eng["tel-legacy"]) + "</div>");
+                             //             "<br><div>" + JSON.stringify(eng["emergency-toll-free-legacy"]) + "</div>");
 
+                            $("#5").html("<br><a href='http://" + JSON.stringify(eng["internet"]).substring(7,JSON.stringify(eng["internet"]).length-1) + "'>" + JSON.stringify(eng["internet"]) + "</a>");
 
-
-
+                          }
+                      }
+                      if (!update) {
+                              $('#1').html("");
+                              $('#2').html("");
+                              $('#3').html("");
+                              $('#4').html("");
+                              $('#5').html("");
+                      }
+                    
+              });
 
             });
               function onPageLoad()
@@ -145,15 +177,28 @@
     <div class="column">
      
       <div class="portlet">
-        <div class="portlet-header">Location</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+        <div class="portlet-header">Locations</div>
+        <div id="1" class="portlet-content"></div>
       </div>
      
       <div class="portlet">
-        <div class="portlet-header">Contact Info</div>
-        <div class="portlet-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</div>
+        <div class="portlet-header">Emails</div>
+        <div id="2" class="portlet-content"></div>
       </div>
-     
+
+      <div class="portlet">
+        <div class="portlet-header">Directions</div>
+        <div id="3" class="portlet-content"></div>
+      </div>
+
+      <div class="portlet">
+        <div class="portlet-header">Phone Numbers</div>
+        <div id="4" class="portlet-content"></div>
+      </div>
+     <div class="portlet">
+        <div class="portlet-header">Websites</div>
+        <div id="5" class="portlet-content"></div>
+      </div>
     </div>
  
  
