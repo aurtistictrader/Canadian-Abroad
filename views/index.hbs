@@ -2,7 +2,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>EZ APP</title>
+        <title>Canadian Abroad</title>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
           <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -10,15 +10,15 @@
         
           <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 
-        <script src="../EZApp/select2-3.4.5/select2.js"></script>
-        <script src="../EZApp/ammap/ammap.js" type="text/javascript"></script>
+        <script src="../EZApp/resources/select2/select2.js"></script>
+        <script src="../EZApp/resources/ammap/ammap.js" type="text/javascript"></script>
         <!-- check ammap/maps/js/ folder to see all available countries -->
-        <script src="../EZApp/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+        <script src="../EZApp/resources/ammap/maps/js/worldLow.js" type="text/javascript"></script>
         <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/light.js"></script>
 
-        <link rel="stylesheet" href="../EZApp/ammap/ammap.css" type="text/css">
+        <link rel="stylesheet" href="../EZApp/resources/ammap/ammap.css" type="text/css">
         <link rel="stylesheet" href="../EZApp/app.css" type="text/css">
-        <link rel="stylesheet" href="../EZApp/select2-3.4.5/select2.css" type="text/css">
+        <link rel="stylesheet" href="../EZApp/resources/select2/select2.css" type="text/css">
 
         <script>
             
@@ -37,7 +37,7 @@
               AmCharts.ready(function() {
                   map = new AmCharts.AmMap();
 
-                  map.pathToImages = "/EZApp/ammap/images/";
+                  map.pathToImages = "/EZApp/resources/ammap/images/";
                   map.dragMap = true;
                   map.centerMap = true;
                   map.mouseWheelZoomEnabled = true;
@@ -71,7 +71,7 @@
                       //showHeadline();
                     } else {
 
-                      $('#actualLine').html("Where would you like to go? <br> <br> Click the Red Button to find your nearest Embassy!");
+                      $('#actualLine').html("Where would you like to go? <br>");
                     }
 
                   });
@@ -80,13 +80,12 @@
 
               });
               $.ajax({
-                url: "/EZApp/embassies-consulates-list.json",
+                url: "/EZApp/JSON/embassies-consulates-list.json",
                 dataType: 'json',
                 type: 'GET',
                 async: false,
                 success: function (data)  {
                   var strData = JSON.stringify(data);
-                  //alert(JSON.stringify(data));
                     $.each($.parseJSON(strData), function (item, value) {
                       if (item == "data") {
                           $.each(value, function (i, object) {
@@ -116,7 +115,7 @@
                 }
               });
               $.ajax({
-                url: "/EZApp/countries.json",
+                url: "/EZApp/JSON/countries.json",
                 dataType: 'json',
                 type: 'GET',
                 async: false,
@@ -136,7 +135,7 @@
                 }
               });
               $.ajax({
-                url: "/EZApp/index-alpha-eng.json",
+                url: "/EZApp/JSON/index-alpha-eng.json",
                 dataType: 'json',
                 type: 'GET',
                 async: false,
@@ -195,13 +194,13 @@
 
                }); 
               $("#searchlocation").select2( preload_data );
-/*    
+              /*    
                 $(".pane .delete").click(function(){
                   $(this).parents(".pane").animate({ opacity: 'hide' }, "slow");
                 });*/
 
             });
-/*
+            /*
               function showHeadline() {
                 $("#headline").animate({ opacity: 'show' }, "slow");
                 
@@ -299,7 +298,8 @@
             </div>
 
             <div id="headline" class="pane">
-              <h3 id= "actualLine">Where would you like to go? <br><br> Click the Red Button to find your nearest Embassy! </h3>
+              <h3 id= "actualLine">Where would you like to go? <br></h3>
+              <!-- <h3 id= "actualLine">Where would you like to go? <br><br> Click the Red Button to find your nearest Embassy! </h3> -->
 
            <!-- <img src="../EZApp/images/btn-delete.gif" width="20px" height="20px" alt="delete" class="delete" />-->
             </div>
@@ -335,7 +335,7 @@
       </div>
     </div>
 
-         <img id="getLocation" src="../EZApp/icon_current_location.png"> </img>
+         <!-- <img id="getLocation" src="../EZApp/icon_current_location.png"> </img> -->
 
     </div>
     </div>
